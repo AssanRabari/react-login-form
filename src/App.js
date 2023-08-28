@@ -5,12 +5,6 @@ function App() {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const renderErrorMessage = (name) => {
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.name}</div>
-    )
-  }
-
   const users = [
     {
       username: "user1",
@@ -27,25 +21,37 @@ function App() {
   ];
 
   const errors = {
-    uname: "Invalid username",
-    pass: "Invalid password"
+    uname: "invalid username",
+    pass: "invalid password"
   };
+
   const handleSubmit = (event) => {
+    //Prevent page reload
     event.preventDefault();
 
     var { uname, pass } = document.forms[0];
 
+    // Find user login info
     const userData = users.find((user) => user.username === uname.value);
 
+    // Compare user info
     if (userData) {
       if (userData.password !== pass.value) {
+        // Invalid password
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
       }
     } else {
+      // Username not found
       setErrorMessages({ name: "uname", message: errors.uname });
     }
+  };
+
+  const renderErrorMessage = (name) => {
+    name === errorMessages.name && (
+      <div className="error">{errorMessages.name}</div>
+    )
   }
 
   const renderform = (
