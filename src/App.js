@@ -10,10 +10,14 @@ function App() {
     )
   }
 
+  const handleSubmit = (event) => {
+
+    event.preventDefault();
+  }
 
   return (
     <div className="form">
-      <form>
+      <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label>Username</label>
             <input type="text" name="uname" required />
